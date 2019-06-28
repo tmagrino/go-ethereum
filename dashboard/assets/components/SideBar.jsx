@@ -18,11 +18,14 @@
 
 import React, {Component} from 'react';
 
-import withStyles from 'material-ui/styles/withStyles';
-import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
-import Icon from 'material-ui/Icon';
+import withStyles from '@material-ui/core/styles/withStyles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Icon from '@material-ui/core/Icon';
 import Transition from 'react-transition-group/Transition';
-import {Icon as FontAwesome} from 'react-fa';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import {MENU, DURATION} from '../common';
 
@@ -41,13 +44,14 @@ const styles = {
 // themeStyles returns the styles generated from the theme for the component.
 const themeStyles = theme => ({
 	list: {
-		background: theme.palette.background.appBar,
+		background: theme.palette.grey[900],
 	},
 	listItem: {
-		minWidth: theme.spacing.unit * 3,
+		minWidth: theme.spacing.unit * 7,
 	},
 	icon: {
 		fontSize: theme.spacing.unit * 3,
+		overflow: 'unset',
 	},
 });
 
@@ -57,9 +61,11 @@ export type Props = {
 	changeContent: string => void,
 };
 
+type State = {}
+
 // SideBar renders the sidebar of the dashboard.
-class SideBar extends Component<Props> {
-	shouldComponentUpdate(nextProps) {
+class SideBar extends Component<Props, State> {
+	shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>, nextContext: any) {
 		return nextProps.opened !== this.props.opened;
 	}
 
@@ -78,7 +84,7 @@ class SideBar extends Component<Props> {
 				<ListItem button key={menu.id} onClick={this.clickOn(menu.id)} className={classes.listItem}>
 					<ListItemIcon>
 						<Icon className={classes.icon}>
-							<FontAwesome name={menu.icon} />
+							<FontAwesomeIcon icon={menu.icon} />
 						</Icon>
 					</ListItemIcon>
 					<ListItemText
